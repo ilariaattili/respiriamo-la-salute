@@ -1,3 +1,8 @@
+html, body {
+  overflow: hidden;
+  touch-action: none;
+}
+
 body {
   margin: 0;
   background: #e0f7fa;
@@ -9,4 +14,23 @@ body {
 canvas {
   border: 3px solid #00796b;
   background: white;
+}
+#mobile-controls {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  z-index: 10;
+}
+
+#mobile-controls button {
+  font-size: 30px;
+  padding: 15px 20px;
+  background-color: #00796b;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
 }

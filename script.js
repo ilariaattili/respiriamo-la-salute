@@ -58,6 +58,13 @@ images.lungSick.src = "images/lung_sick.png";
       if (e.key === "ArrowLeft") lungX -= speed;
       if (e.key === "ArrowRight") lungX += speed;
     });
+document.getElementById("leftBtn").addEventListener("touchstart", () => {
+  lungX -= speed;
+});
+
+document.getElementById("rightBtn").addEventListener("touchstart", () => {
+  lungX += speed;
+});
 
     function isColliding(obj) {
       return (
