@@ -54,10 +54,40 @@ images.lungSick.src = "images/lung_sick.png";
       objects.push({ x, y, speed, type, subtype });
     }
 
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "ArrowLeft") lungX -= speed;
-      if (e.key === "ArrowRight") lungX += speed;
-    });
+    let isDragging = false;
+let touchOffsetX = 0;
+document.addEventListener("keydown", function (e) {
+  if (e.key === "ArrowLeft") lungX -= speed;
+  if (e.key === "ArrowRight") lungX += speed;
+});
+
+canvas.addEventListener("touchstart", function (e) {
+  const touch = e.touches[0];
+  const touchX = touch.clientX - canvas.getBoundingClientRect().left;
+
+  // Se il tocco è dentro il polmone
+  if (touchX >= lungX && touchX <= lungX + 80) {
+    isDragging = true;
+    touchOffsetX = touchX - lungX;
+  }
+});
+
+canvas.addEventListener("touchmove", function (e) {
+  if (!isDragging) return;
+  const touch = e.touches[0];
+  const touchX = touch.clientX - canvas.getBoundingClientRect().left;
+  lungX = touchX - touchOffsetX;
+
+  // Limita ai bordi del canvas
+  if (lungX < 0) lungX = 0;
+  if (lungX > canvas.width - 80) lungX = canvas.width - 80;
+  e.preventDefault(); // Impedisce lo scroll della pagina
+}, { passive: false });
+
+canvas.addEventListener("touchend", function () {
+  isDragging = false;
+});
+
 document.getElementById("leftBtn").addEventListener("touchstart", () => {
   lungX -= speed;
 });
